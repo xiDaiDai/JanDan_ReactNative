@@ -26,16 +26,17 @@ constructor(props) {
 }
 
 componentDidMount(){
-  setTimeout(()=>{this.setState({splashed:true});
+     setTimeout(()=>{this.setState({splashed:true});
                       },4000);
 }
 
  
   renderScene(route, navigator){
-             
-      if(route.name == 'freshNews'){
-        return <FreshNews navigator={navigator} route={route} />
-      }
+      switch(route.name){
+        case 'freshNews':
+           return <FreshNews navigator={navigator} route={route} />
+        break;
+       }
       
     }
 
