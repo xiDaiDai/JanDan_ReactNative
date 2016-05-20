@@ -49,7 +49,7 @@ class FreshNews extends Component {
                     actions={[{title: '新鲜事', icon: require('./image/ic_action_refresh.png'), show: 'always'}]}
                     onIconClicked={() => this.refs.drawerLayoutAndroid.openDrawer()}
                     onActionSelected={this.onActionSelected} />
-                    <NewsList></NewsList>
+                    <NewsList navigator={this.props.navigator}></NewsList>
                     
               </View>
           </DrawerLayoutAndroid>

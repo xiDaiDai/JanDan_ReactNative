@@ -14,13 +14,17 @@ import {
   ListView,
   RefreshControl,
   TouchableHighlight,
+  ToastAndroid,
   ProgressBarAndroid,
 } from 'react-native';
 
-import LoadingView from './LoadingView'
+import LoadingView from './LoadingView';
+import NewsPage from './NewsPage';
+import Splash from './Splash';
+
 
 const url = "http://jandan.net/?oxwlxojflwblxbsapi=get_recent_posts&include=url,date,title,custom_fields&custom_fields=thumb_c,views&dev=1&page=";
-const detail_url = "http://i.jandan.net/?oxwlxojflwblxbsapi=get_post&include=content&id=";
+const detail_url = "http://i.jandan.net/?oxwlxojflwblxbsapi=get_post&include=content&id=78932";
 let pageIndex = 1;
  
 class NewsList extends Component {
@@ -43,10 +47,7 @@ class NewsList extends Component {
   }
 
   render() {
-     if(!this.state.loaded){
-       return (<LoadingView/>);
-    }
-
+     if(!this.state.loaded)return (<LoadingView/>);
     return (
       <View style={{flex:1}}>
         <ListView
@@ -57,8 +58,6 @@ class NewsList extends Component {
             <RefreshControl
               refreshing={this.state.isRefreshing}
               onRefresh={()=>this.onRefresh()}
-              tintColor="#ff0000"
-              title="Loading..."
               colors={['#272822']}/>}/>
       </View>
     );
@@ -68,7 +67,7 @@ class NewsList extends Component {
 
   renderNewsItem(newsItem){
     return(
-      <TouchableHighlight onPress={() => this.pressRow(rowID)}>
+      <TouchableHighlight onPress={() => this.pressRow(newsItem.url)}>
         <View style={{backgroundColor:'white',flexDirection:'column'}}>
           <View style={{justifyContent:'center', flexDirection :'row',padding:10}}>          
                <View style= {styles.leftContainer}>
@@ -127,6 +126,16 @@ class NewsList extends Component {
         });
       })
       .done();
+  }
+
+
+  pressRow(url){
+        this.props.navigator.push({
+             title:'NewsPage',
+             name:'NewsPage',
+             params:{url:url}
+              
+            });
   }
 
  

@@ -9,11 +9,16 @@ import {
   StyleSheet,
   Text,
   View,
-  Navigator
+  Navigator,
+  Platform,
+  BackAndroid,
 } from 'react-native';
 
 import Splash from './Splash';
 import FreshNews from './FreshNews';
+import NewsPage from './NewsPage';
+
+let nav;
 
 class JanDan_ReactNative extends Component {
 
@@ -28,13 +33,29 @@ constructor(props) {
 componentDidMount(){
      setTimeout(()=>{this.setState({splashed:true});
                       },4000);
+     if (Platform.OS === 'android') {
+        BackAndroid.addEventListener('hardwareBackPress',()=>this.onBackAndroid());
+    };
 }
 
+
+  onBackAndroid(){
+    let routers = this.nav.getCurrentRoutes();
+    if (this.nav&&routers.length > 1) {
+        this.nav.pop();
+        return true;
+      }
+        return false;
+  } 
  
   renderScene(route, navigator){
+      this.nav = navigator;
       switch(route.name){
         case 'freshNews':
            return <FreshNews navigator={navigator} route={route} />
+           break;
+        case 'NewsPage':
+          return <NewsPage navigator={navigator} route={route} {...route.params}/>
         break;
        }
       
