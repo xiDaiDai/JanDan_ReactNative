@@ -17,8 +17,11 @@ import {
   ProgressBarAndroid,
 } from 'react-native';
 
+import LoadingView from './LoadingView'
+
 const url = "http://jandan.net/?oxwlxojflwblxbsapi=get_recent_posts&include=url,date,title,custom_fields&custom_fields=thumb_c,views&dev=1&page=";
 const detail_url = "http://i.jandan.net/?oxwlxojflwblxbsapi=get_post&include=content&id=";
+let pageIndex = 1;
  
 class NewsList extends Component {
   constructor(props) {
@@ -29,7 +32,9 @@ class NewsList extends Component {
         dataSource:new ListView.DataSource({
           rowHasChanged:(row1,row2)=>row1!==row2,
         }),  
-        loaded:false
+        loaded:false,
+        loadMore: false,
+        newContent:null,
     };
   }
 
@@ -39,7 +44,7 @@ class NewsList extends Component {
 
   render() {
      if(!this.state.loaded){
-       return this.renderLoadingView();
+       return (<LoadingView/>);
     }
 
     return (
@@ -47,6 +52,7 @@ class NewsList extends Component {
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(newsItem)=>this.renderNewsItem(newsItem)}
+          onEndReached={()=>this.loadmore()}
           refreshControl={
             <RefreshControl
               refreshing={this.state.isRefreshing}
@@ -62,17 +68,13 @@ class NewsList extends Component {
 
   renderNewsItem(newsItem){
     return(
-      <TouchableHighlight>
+      <TouchableHighlight onPress={() => this.pressRow(rowID)}>
         <View style={{backgroundColor:'white',flexDirection:'column'}}>
           <View style={{justifyContent:'center', flexDirection :'row',padding:10}}>          
                <View style= {styles.leftContainer}>
-                  <Text style = {{fontSize:15,color:'#272822'}}>
-                    {newsItem.title}
-                  </Text>
+                  <Text style = {{fontSize:15,color:'#272822'}}>{newsItem.title}</Text>
                   <View style = {{flex:1,justifyContent:'flex-end'}} >
-                    <Text >
-                      {newsItem.date}
-                    </Text>
+                    <Text >{newsItem.date}</Text>
                   </View>                   
                </View>
                <Image
@@ -84,8 +86,6 @@ class NewsList extends Component {
       </TouchableHighlight>
   
     );
-
-  
   }
 
   onRefresh(){
@@ -95,10 +95,13 @@ class NewsList extends Component {
 
 
   fetchNewsData(){
-    fetch(url)
+    pageIndex = 1,
+    fetch(url+pageIndex)
       .then((response) => response.json())
       .then((responseData) => {
+       
         this.setState({
+          newContent:responseData.posts,
           dataSource:this.state.dataSource.cloneWithRows(responseData.posts),
           loaded: true,
           isRefreshing:false
@@ -107,28 +110,34 @@ class NewsList extends Component {
       .done();
   }
 
+  loadmore(){
+     if(this.state.loadmore) return;
+     this.setState({loadmore:true});
 
-   renderLoadingView(){
-    return(
-      <View style = {{flex:1,justifyContent:'center',alignItems:'center'}}>
-        <ProgressBarAndroid styleAttr="SmallInverse" color='#272822' />
-        <Text>
-          数据加载中......
-        </Text>
-      </View>
-    );
+     fetch(url+pageIndex++)
+      .then((response) => response.json())
+      .then((responseData) => {
+        
+        this.setState({
+          newContent:[...this.state.newContent, ...responseData.posts],
+          dataSource:this.state.dataSource.cloneWithRows(this.state.newContent),
+          loaded: true,
+          isRefreshing:false,
+          loadmore:false
+        });
+      })
+      .done();
   }
+
+ 
 
 
 }
 
 const styles = StyleSheet.create({
   container: {
-    
-    
     justifyContent:'center',
     flexDirection :'row', 
-   
   },
   leftContainer:{
     height:60,
@@ -137,17 +146,6 @@ const styles = StyleSheet.create({
     marginRight: 5,
     backgroundColor: 'white',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-
   thumbnail:{
         width:90,
         height:60,
