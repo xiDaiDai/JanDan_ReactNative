@@ -9,9 +9,11 @@ import {
   DrawerLayoutAndroid,
   ToastAndroid,
   ToolbarAndroid,
+  
    
 } from 'react-native';
 import DrawerList from './DrawerList';
+import NewsList from './NewsList';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const DRAWER_ALIGN_RIGHT= 100;
@@ -44,11 +46,10 @@ class FreshNews extends Component {
                     navIcon={require('./image/ic_drawer.png')}
                     title="JanDan"
                     titleColor='white'
-                    actions={[{title: '新鲜事', icon: require('./image/ic_settings_white_24dp.png'), show: 'always'}]}
+                    actions={[{title: '新鲜事', icon: require('./image/ic_action_refresh.png'), show: 'always'}]}
+                    onIconClicked={() => this.refs.drawerLayoutAndroid.openDrawer()}
                     onActionSelected={this.onActionSelected} />
-                    <View style={styles.content}>
-                        <Text style={[styles.instructions,{fontSize:45}]}>{this.state.content}</Text>
-                    </View>
+                    <NewsList></NewsList>
                     
               </View>
           </DrawerLayoutAndroid>
