@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 
 import Splash from './Splash';
-import FreshNews from './FreshNews';
+import Home from './Home';
 import NewsPage from './NewsPage';
 
 let nav;
@@ -51,8 +51,8 @@ componentDidMount(){
   renderScene(route, navigator){
       this.nav = navigator;
       switch(route.name){
-        case 'freshNews':
-           return <FreshNews navigator={navigator} route={route} />
+        case 'home':
+           return <Home navigator={navigator} route={route} />
            break;
         case 'NewsPage':
           return <NewsPage navigator={navigator} route={route} {...route.params}/>
@@ -63,7 +63,7 @@ componentDidMount(){
 
   render() {
       if(this.state.splashed){
-        let initialRoute = {name:'freshNews'}
+        let initialRoute = {name:'home'}
         return (
               <Navigator
               style={styles.container}

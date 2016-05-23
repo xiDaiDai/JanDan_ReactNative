@@ -21,13 +21,13 @@ import {
 import LoadingView from './LoadingView';
 import NewsPage from './NewsPage';
  
+ 
 
-
-const url = "http://jandan.net/?oxwlxojflwblxbsapi=get_recent_posts&include=url,date,title,custom_fields&custom_fields=thumb_c,views&dev=1&page=";
-const detail_url = "http://i.jandan.net/?oxwlxojflwblxbsapi=get_post&include=content&id=78932";
+const url = "http://jandan.net/?oxwlxojflwblxbsapi=jandan.get_duan_comments&page=";
+ 
 let pageIndex = 1;
  
-class NewsList extends Component {
+class TreeNewBeeList extends Component {
   constructor(props) {
     super(props);
   
@@ -69,19 +69,27 @@ class NewsList extends Component {
     return(
       <TouchableHighlight 
             underlayColor='white'
-            onPress={() => this.pressRow(newsItem.url)} >
+           >
         <View style={{backgroundColor:'white',flexDirection:'column'}}>
-          <View style={{justifyContent:'center', flexDirection :'row',padding:10}}>          
-               <View style= {styles.leftContainer}>
-                  <Text style = {{fontSize:15,color:'#272822'}}>{newsItem.title}</Text>
-                  <View style = {{flex:1,justifyContent:'flex-end'}} >
-                    <Text >{newsItem.date}</Text>
-                  </View>                   
-               </View>
-               <Image
-                  style = {styles.thumbnail}
-                  source={{uri:newsItem.custom_fields.thumb_c[0]}}/>
-          </View>          
+          <View style={{ flexDirection :'row',padding:10,alignItems:'center'}}>          
+                <Text style = {{fontSize:16,color:'#272822',paddingRight:10,fontWeight:'bold'}}>{newsItem.comment_author}</Text>
+                <Text >{newsItem.comment_date}</Text>
+          </View>    
+          <View style={{justifyContent:'flex-start',paddingLeft:10,paddingRight:10}}>
+                <Text style={{fontSize:15,color:'#272822',lineHeight:25}}>{newsItem.comment_content}</Text>
+          </View> 
+          <View style={{flexDirection :'row',padding:10}}>
+                <View style={{flexDirection :'row'}}>
+                  <Text style={{fontSize:15,paddingRight:15}}>OO {newsItem.vote_positive}</Text>
+                  <Text style={{fontSize:15,paddingRight:15}}>XX {newsItem.vote_negative}</Text>
+                  <Text style={{fontSize:15,paddingRight:15}}>吐槽 {newsItem.vote_positive}</Text>
+                </View>
+                
+                <View style={{flex:1 ,alignItems:'flex-end'}}>
+                 <Text style={{fontSize:15,fontWeight:'bold',justifyContent:'center'}}>. . .</Text>
+                </View>
+                
+          </View>    
           <View style={{backgroundColor:'#d8d8d8',height:1,flexDirection: 'row'}}/>
         </View>
       </TouchableHighlight>
@@ -102,8 +110,8 @@ class NewsList extends Component {
       .then((responseData) => {
        
         this.setState({
-          newContent:responseData.posts,
-          dataSource:this.state.dataSource.cloneWithRows(responseData.posts),
+          newContent:responseData.comments,
+          dataSource:this.state.dataSource.cloneWithRows(responseData.comments),
           loaded: true,
           isRefreshing:false
         });
@@ -120,7 +128,7 @@ class NewsList extends Component {
       .then((responseData) => {
         
         this.setState({
-          newContent:[...this.state.newContent, ...responseData.posts],
+          newContent:[...this.state.newContent, ...responseData.comments],
           dataSource:this.state.dataSource.cloneWithRows(this.state.newContent),
           loaded: true,
           isRefreshing:false,
@@ -129,20 +137,7 @@ class NewsList extends Component {
       })
       .done();
   }
-
-
-  pressRow(url){
-        this.props.navigator.push({
-             title:'NewsPage',
-             name:'NewsPage',
-             params:{url:url}
-              
-            });
-  }
-
  
-
-
 }
 
 const styles = StyleSheet.create({
@@ -163,4 +158,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default NewsList;
+export default TreeNewBeeList;
