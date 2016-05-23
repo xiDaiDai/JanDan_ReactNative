@@ -15,6 +15,9 @@ import {
 import DrawerList from './DrawerList';
 import NewsList from './NewsList';
 import TreeNewBeeList from'./TreeNewBeeList';
+import GirlsList from './GirlsList';
+import PicturesList from './PicturesList';
+import SettingPage from './SettingPage';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const DRAWER_ALIGN_RIGHT= 100;
@@ -44,10 +47,10 @@ class Home extends Component {
               <View style={styles.container}>
                    <ToolbarAndroid
                     style={styles.toolBar}
-                    navIcon={require('./image/ic_explore_white_24dp.png')}
+                    navIcon={require('./image/ic_menu_white_18dp.png')}
                     title="煎蛋"
                     titleColor='white'
-                    actions={[{title: '新鲜事', icon: require('./image/ic_action_refresh.png'), show: 'always'}]}
+                    actions={[{title: '新鲜事', icon: require('./image/ic_refresh_white_24dp.png'), show: 'always'}]}
                     onIconClicked={() => this.refs.drawerLayoutAndroid.openDrawer()}
                     onActionSelected={this.onActionSelected} />
                     {this.state.centerContent}                    
@@ -73,13 +76,13 @@ class Home extends Component {
           this.setState({centerContent :<TreeNewBeeList navigator={this.props.navigator}/>})
               break;
         case 'pictures':
-          this.setState({centerContent :<NewsList/>})
+          this.setState({centerContent :<PicturesList navigator={this.props.navigator}/>})
               break;
         case 'girls':
-          this.setState({centerContent :<NewsList/>})
+          this.setState({centerContent :<GirlsList navigator={this.props.navigator}/>})
               break;
         case 'setting':
-          this.setState({centerContent :<NewsList/>})
+          this.setState({centerContent :<SettingPage navigator={this.props.navigator}/>})
               break;
      }
     
@@ -93,7 +96,7 @@ class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#E6E6E6',
   },
   content: {
     flex: 1,
@@ -103,7 +106,7 @@ const styles = StyleSheet.create({
   },
   toolBar: {
     backgroundColor: '#232320',
-    height: 55,
+    height: 50,
   },
 
   instructions: {

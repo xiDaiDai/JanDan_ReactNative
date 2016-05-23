@@ -1,3 +1,4 @@
+
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -16,18 +17,19 @@ import {
   TouchableHighlight,
   ToastAndroid,
   ProgressBarAndroid,
+  Dimensions
 } from 'react-native';
 
 import LoadingView from './LoadingView';
 import NewsPage from './NewsPage';
- 
- 
+const WINDOW_WIDTH = Dimensions.get('window').width;
 
-const url = "http://jandan.net/?oxwlxojflwblxbsapi=jandan.get_duan_comments&page=";
+
+const url = "http://jandan.net/?oxwlxojflwblxbsapi=jandan.get_pic_comments&page=";
  
 let pageIndex = 1;
  
-class TreeNewBeeList extends Component {
+class PicturesList extends Component {
   constructor(props) {
     super(props);
   
@@ -66,7 +68,7 @@ class TreeNewBeeList extends Component {
  
 
   renderNewsItem(newsItem){
-    return(
+   return(
       <TouchableHighlight 
             underlayColor='white'
            >
@@ -75,8 +77,8 @@ class TreeNewBeeList extends Component {
                 <Text style = {{fontSize:16,color:'#272822',paddingRight:10,fontWeight:'bold'}}>{newsItem.comment_author}</Text>
                 <Text >{newsItem.comment_date}</Text>
           </View>    
-          <View style={{justifyContent:'flex-start',paddingLeft:10,paddingRight:10}}>
-                <Text style={{fontSize:15,color:'#272822',lineHeight:25}}>{newsItem.comment_content}</Text>
+          <View style={{paddingLeft:10,paddingRight:10}}>
+                <Image source={{uri:newsItem.pics[0]}} style={{width:WINDOW_WIDTH-40,height:300}}></Image>
           </View> 
           <View style={{flexDirection :'row',padding:10}}>
                 <View style={{flexDirection :'row'}}>
@@ -90,7 +92,7 @@ class TreeNewBeeList extends Component {
                 </View>
                 
           </View>    
-          
+          <View style={{backgroundColor:'#d8d8d8',height:1,flexDirection: 'row'}}/>
         </View>
       </TouchableHighlight>
   
@@ -137,7 +139,20 @@ class TreeNewBeeList extends Component {
       })
       .done();
   }
+
+
+  pressRow(url){
+        this.props.navigator.push({
+             title:'NewsPage',
+             name:'NewsPage',
+             params:{url:url}
+              
+            });
+  }
+
  
+
+
 }
 
 const styles = StyleSheet.create({
@@ -158,4 +173,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default TreeNewBeeList;
+export default PicturesList;
