@@ -88,7 +88,7 @@ class NewsList extends Component {
                   style = {styles.thumbnail}
                   source={{uri:newsItem.custom_fields.thumb_c[0]}}/>
           </View>          
-          <View style={{backgroundColor:'#d8d8d8',height:1,flexDirection: 'row'}}/>
+          <View style={{backgroundColor:'#d8d8d8',height:0.5,flexDirection: 'row'}}/>
         </View>
       </TouchableHighlight>
   

@@ -42,6 +42,7 @@ class PicturesList extends Component {
         loaded:false,
         loadMore: false,
         newContent:null,
+        isImageLoaded:false
     };
   }
 
@@ -74,6 +75,8 @@ class PicturesList extends Component {
   }
 
   renderNewsItem(newsItem){
+    let imageContent = this.state.isImageLoaded?null:(<ProgressBarAndroid styleAttr="Inverse" color='#272822' />);
+
    return(
       <TouchableHighlight 
             underlayColor='white'
@@ -84,7 +87,14 @@ class PicturesList extends Component {
                 <Text >{newsItem.comment_date}</Text>
           </View>    
           <View style={{paddingLeft:10,paddingRight:10}}>
-                <Image source={{uri:newsItem.pics[0]}} style={{width:WINDOW_WIDTH-40,height:300}}></Image>
+                <Image ref='imageShower' 
+                        onLoadStart={()=>this.setState({isImageLoaded:false})}
+                        onLoad={()=>this.setState({isImageLoaded:true})} 
+                        source={{uri:newsItem.pics[0]}} 
+                        style={{width:WINDOW_WIDTH-40,height:300,justifyContent:'center'}}>
+                  {imageContent}
+                </Image>
+                
           </View> 
           <View style={{flexDirection :'row',padding:10}}>
                 <View style={{flexDirection :'row'}}>
@@ -105,11 +115,11 @@ class PicturesList extends Component {
     );
   }
 
+
   onRefresh(){
       this.setState({isRefreshing: true,});
       this.fetchNewsData();
   }
-
 
   fetchNewsData(){
     pageIndex = 1,
