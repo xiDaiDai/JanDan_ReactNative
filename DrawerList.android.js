@@ -11,6 +11,7 @@ import {
   Text,
   View,
   Image,
+  Dimensions,
   TouchableHighlight,
 } from 'react-native';
 
@@ -20,6 +21,9 @@ const PICTURES = "无聊图 ";
 const GIRLS = "妹子图";
 const VIDEOS = "小电影";
 const SETTING = "设置";
+
+const WINDOW_WIDTH = Dimensions.get('window').width;
+const DRAWER_ALIGN_RIGHT= 100;
 
 class DrawerList extends Component {
   render() {
@@ -97,13 +101,10 @@ class DrawerList extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    
-    alignItems: 'flex-start',
-    backgroundColor: '#272822',
+    backgroundColor: '#272822'
   },
   
   item: {
-    
     fontSize: 18,
     textAlign: 'right',
     color: '#ffffff',
@@ -120,8 +121,8 @@ const styles = StyleSheet.create({
    itemView:{
       
       flexDirection: 'row', 
-      alignItems: 'center', 
       padding: 16
+      
    }
 
 });

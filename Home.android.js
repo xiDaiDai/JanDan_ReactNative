@@ -22,13 +22,16 @@ import SettingPage from './SettingPage';
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const DRAWER_ALIGN_RIGHT= 100;
 
+
  
  
 class Home extends Component {
   constructor(props) {
     super(props);
   
-    this.state = {};
+    this.state = {
+      title:'新鲜事'
+    };
   }
 
   componentDidMount(){
@@ -48,9 +51,9 @@ class Home extends Component {
                    <ToolbarAndroid
                     style={styles.toolBar}
                     navIcon={require('./image/ic_menu_white_18dp.png')}
-                    title="煎蛋"
+                    title={this.state.title}
                     titleColor='white'
-                    actions={[{title: '新鲜事', icon: require('./image/ic_refresh_white_24dp.png'), show: 'always'}]}
+                    actions={[{title:'刷新',icon: require('./image/ic_refresh_white_24dp.png'), show: 'always'}]}
                     onIconClicked={() => this.refs.drawerLayoutAndroid.openDrawer()}
                     onActionSelected={this.onActionSelected} />
                     {this.state.centerContent}                    
@@ -70,19 +73,19 @@ class Home extends Component {
      ToastAndroid.show(theme, ToastAndroid.LONG);
      switch(theme){
         case 'freshNews':
-          this.setState({centerContent :<NewsList navigator={this.props.navigator}/>})
+          this.setState({centerContent :<NewsList navigator={this.props.navigator}/>,title:'新鲜事'})
               break;
         case 'treeNewBee':
-          this.setState({centerContent :<TreeNewBeeList navigator={this.props.navigator}/>})
+          this.setState({centerContent :<TreeNewBeeList navigator={this.props.navigator}/>,title:'段子'})
               break;
         case 'pictures':
-          this.setState({centerContent :<PicturesList navigator={this.props.navigator}/>})
+          this.setState({centerContent :<PicturesList navigator={this.props.navigator}/>,title:'无聊图'})
               break;
         case 'girls':
-          this.setState({centerContent :<GirlsList navigator={this.props.navigator}/>})
+          this.setState({centerContent :<GirlsList navigator={this.props.navigator}/>,title:'妹子图'})
               break;
         case 'setting':
-          this.setState({centerContent :<SettingPage navigator={this.props.navigator}/>})
+          this.setState({centerContent :<SettingPage navigator={this.props.navigator}/>,title:'设置'})
               break;
      }
     

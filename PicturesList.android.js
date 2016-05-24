@@ -56,6 +56,8 @@ class PicturesList extends Component {
           dataSource={this.state.dataSource}
           renderRow={(newsItem)=>this.renderNewsItem(newsItem)}
           onEndReached={()=>this.loadmore()}
+          onEndReachedThreshold={30}
+          renderFooter={()=>this.renderFooter()}
           refreshControl={
             <RefreshControl
               refreshing={this.state.isRefreshing}
@@ -65,7 +67,12 @@ class PicturesList extends Component {
     );
   }
 
- 
+ renderFooter(){
+    return(this.state.loadmore?<View style={{height:50,justifyContent:'center',alignItems:'center'}}>
+      <Text style={{fontSize:15,color:'#272822'}}>正在加载......</Text>
+      </View>:null);
+    
+  }
 
   renderNewsItem(newsItem){
    return(

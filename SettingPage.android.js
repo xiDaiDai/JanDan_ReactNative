@@ -10,6 +10,9 @@ import {
   StyleSheet,
   Text,
   Image,
+  TouchableHighlight,
+  DialogManagerAndroid,
+  ToastAndroid,
   View
 } from 'react-native';
 
@@ -18,8 +21,9 @@ class SettingPage extends Component {
     return (
       <View style={{flex:1,backgroundColor:'white',alignItems:'center',justifyContent:'center'}}>
         <Image style={{width:100,height:100}} source={require('./image/ic_launcher.png')}/>
-        
-        <Text style={{fontSize:20 ,fontWeight:'bold',color:'#272822'}}>ReactNativeJanDan</Text>
+           <TouchableHighlight  onPress={() =>this.showDialog()} underlayColor='#fff'>
+              <Text style={{fontSize:20 ,fontWeight:'bold',color:'#272822'}}>煎蛋RN</Text>
+            </TouchableHighlight>
         
         <View style={{margin:10,backgroundColor:'#272822',borderRadius: 4,padding:10}}>
           <Text style={{color:'white',fontSize:16}}>煎蛋ReactNative版android客户端</Text>
@@ -31,6 +35,24 @@ class SettingPage extends Component {
         
       </View>
     );
+  }
+
+  showDialog(){
+     // ReadableMap options,
+     //  Callback errorCallback,
+     //  Callback actionCallback
+     
+     /* DialogManagerAndroid.showAlert({
+        title:'jandan',message:'conetnt message',buttonPositive:'ok',buttonNegative:'cancel'},
+        ()=>onError(),()=>onAction());*/
+  }
+
+  onError(){
+      ToastAndroid.show('error ',1000);
+  }
+
+  onAction(){
+      ToastAndroid.show('action',1000);
   }
 }
 
