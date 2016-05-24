@@ -12,7 +12,9 @@ import {
   WebView,
   View,
   ToastAndroid,
+  ToolbarAndroid
 } from 'react-native';
+const detail_url = "http://i.jandan.net/?oxwlxojflwblxbsapi=get_post&include=content&id=";
 
 import LoadingView from './LoadingView';
 
@@ -21,19 +23,52 @@ class NewsPage extends Component {
     super(props);
   
     this.state = {
-      isloading:false,
+      isloading:true,
+      conent:null,
+       
     };
   }
-  render() {
-    return (
 
+  componentDidMount(){
+    this.fetchNewsData();
+  }
+
+  render() {
+    if(this.state.isloading)return (<LoadingView/>);
+    return (
       <View style={styles.container}>
-       <WebView
-          startInLoadingState={true}
-          javaScriptEnabled={true}
-          source={{uri: this.props.url}}/>
+      <ToolbarAndroid
+                style={styles.toolBar}
+                navIcon={require('./image/ic_arrow_back_white_18dp.png')}
+                title={this.props.title}
+                titleColor='white'
+                
+                onIconClicked={() => this.backAndroid()}/>
+       <WebView javaScriptEnabled={true}
+                automaticallyAdjustContentInsets={true}
+                source={{html: this.state.content}}
+                style={{margin:5}}
+                />
       </View>
     );
+  }
+
+  backAndroid(){
+       this.props.navigator.pop();
+  }
+
+
+   fetchNewsData(){
+    fetch(detail_url+this.props.id)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          content:responseData.post.content,
+          isloading: false,
+         
+        });
+      })
+      .done();
   }
 
   
@@ -42,8 +77,11 @@ class NewsPage extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
     backgroundColor: '#ffffff',
+  },
+   toolBar: {
+    backgroundColor: '#232320',
+    height: 50,
   },
    
 });

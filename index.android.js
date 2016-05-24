@@ -12,6 +12,7 @@ import {
   Navigator,
   Platform,
   BackAndroid,
+  StatusBar
 } from 'react-native';
 
 import Splash from './Splash';
@@ -68,13 +69,16 @@ componentDidMount(){
               <Navigator
               style={styles.container}
               initialRoute={initialRoute}
-              configureScene={() => Navigator.SceneConfigs.FadeAndroid}
+              configureScene={() => Navigator.SceneConfigs.PushFromRight}
               renderScene={(route,navigator)=>this.renderScene(route,navigator)}/>
           
               );
       }else{
           return (
                 <View style={styles.container}>
+                    <StatusBar
+                      backgroundColor='transparent'
+                      translucent={true}/>
                    <Splash/>
                 </View>);
       }

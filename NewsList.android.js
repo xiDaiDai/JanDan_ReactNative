@@ -20,11 +20,9 @@ import {
 
 import LoadingView from './LoadingView';
 import NewsPage from './NewsPage';
- 
-
-
+import LoadingMoreView from './LoadingMoreView';
 const url = "http://jandan.net/?oxwlxojflwblxbsapi=get_recent_posts&include=url,date,title,custom_fields&custom_fields=thumb_c,views&dev=1&page=";
-const detail_url = "http://i.jandan.net/?oxwlxojflwblxbsapi=get_post&include=content&id=78932";
+
 let pageIndex = 1;
  
 class NewsList extends Component {
@@ -67,9 +65,7 @@ class NewsList extends Component {
 
 
   renderFooter(){
-    return(this.state.loadmore?<View style={{height:50,justifyContent:'center',alignItems:'center'}}>
-      <Text style={{fontSize:15,color:'#272822'}}>正在加载......</Text>
-      </View>:null);
+    return(this.state.loadmore?<LoadingMoreView/>:null);
     
   }
 
@@ -79,7 +75,7 @@ class NewsList extends Component {
     return(
       <TouchableHighlight 
             underlayColor='white'
-            onPress={() => this.pressRow(newsItem.url)} >
+            onPress={() => this.pressRow(newsItem.id,newsItem.title)} >
         <View style={{backgroundColor:'white',flexDirection:'column'}}>
           <View style={{justifyContent:'center', flexDirection :'row',padding:10}}>          
                <View style= {styles.leftContainer}>
@@ -124,8 +120,8 @@ class NewsList extends Component {
   loadmore(){
      if(this.state.loadmore) return;
      this.setState({loadmore:true});
-
-     fetch(url+pageIndex++)
+     pageIndex++;
+     fetch(url+pageIndex)
       .then((response) => response.json())
       .then((responseData) => {
         
@@ -141,11 +137,11 @@ class NewsList extends Component {
   }
 
 
-  pressRow(url){
+  pressRow(id,title){
         this.props.navigator.push({
              title:'NewsPage',
              name:'NewsPage',
-             params:{url:url}
+             params:{id:id,title:title}
               
             });
   }

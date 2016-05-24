@@ -20,9 +20,7 @@ import {
 
 import LoadingView from './LoadingView';
 import NewsPage from './NewsPage';
- 
- 
-
+import LoadingMoreView from './LoadingMoreView';
 const url = "http://jandan.net/?oxwlxojflwblxbsapi=jandan.get_duan_comments&page=";
  
 let pageIndex = 1;
@@ -66,9 +64,7 @@ class TreeNewBeeList extends Component {
   }
   
   renderFooter(){
-    return(this.state.loadmore?<View style={{height:50,justifyContent:'center',alignItems:'center'}}>
-      <Text style={{fontSize:15,color:'#272822'}}>正在加载......</Text>
-      </View>:null);
+    return(this.state.loadmore?<LoadingMoreView/>:null);
     
   }
  
@@ -78,7 +74,7 @@ class TreeNewBeeList extends Component {
       <TouchableHighlight 
             underlayColor='white'
            >
-        <View style={{backgroundColor:'white',flexDirection:'column',marginTop:10,marginLeft:10,marginRight:10,borderRadius:5}}>
+        <View style={{backgroundColor:'white',flexDirection:'column',marginTop:10,marginLeft:10,marginRight:10,borderRadius:5,borderWidth:0.5,borderColor:'#A8AFB3'}}>
           <View style={{ flexDirection :'row',padding:10,alignItems:'center'}}>          
                 <Text style = {{fontSize:16,color:'#272822',paddingRight:10,fontWeight:'bold'}}>{newsItem.comment_author}</Text>
                 <Text >{newsItem.comment_date}</Text>
@@ -130,8 +126,8 @@ class TreeNewBeeList extends Component {
   loadmore(){
      if(this.state.loadmore) return;
      this.setState({loadmore:true});
-
-     fetch(url+pageIndex++)
+      pageIndex++;
+     fetch(url+pageIndex)
       .then((response) => response.json())
       .then((responseData) => {
         
@@ -149,21 +145,7 @@ class TreeNewBeeList extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent:'center',
-    flexDirection :'row', 
-  },
-  leftContainer:{
-    height:60,
-    flexDirection :'column', 
-    flex: 1,  
-    marginRight: 5,
-    backgroundColor: 'white',
-  },
-  thumbnail:{
-        width:90,
-        height:60,
-    },
+   
 });
 
 export default TreeNewBeeList;

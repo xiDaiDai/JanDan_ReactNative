@@ -14,9 +14,9 @@ import {
 class LoadingView extends Component {
   render() {
     return (
-     <View style = {{flex:1,justifyContent:'center',alignItems:'center'}}>
-        <ProgressBarAndroid styleAttr="SmallInverse" color='#272822' />
-        <Text style={{fontSize:13}}>
+     <View style = {{flex:1,justifyContent:'center',alignItems:'center',backgroundColor:'white'}}>
+        <ProgressBarAndroid styleAttr="Inverse" color='#272822' />
+        <Text style={{fontSize:15}}>
           数据加载中......
         </Text>
       </View>

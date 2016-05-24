@@ -22,6 +22,7 @@ import {
 
 import LoadingView from './LoadingView';
 import NewsPage from './NewsPage';
+import LoadingMoreView from './LoadingMoreView';
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
 
@@ -68,8 +69,9 @@ class GirlsList extends Component {
   }
   
   renderFooter(){
-    return(this.state.loadmore?<View style={{height:50,justifyContent:'center',alignItems:'center'}}>
-      <Text style={{fontSize:15,color:'#272822'}}>正在加载......</Text>
+    return(this.state.loadmore?<View style={{height:50,justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
+      <ProgressBarAndroid styleAttr="SmallInverse" color='#272822' />
+      <Text style={{fontSize:13,color:'#272822'}}>正在加载......</Text>
       </View>:null);
     
   }
@@ -132,8 +134,8 @@ class GirlsList extends Component {
   loadmore(){
      if(this.state.loadmore) return;
      this.setState({loadmore:true});
-
-     fetch(url+pageIndex++)
+      pageIndex++;
+     fetch(url+pageIndex)
       .then((response) => response.json())
       .then((responseData) => {
         

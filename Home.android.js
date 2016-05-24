@@ -9,8 +9,8 @@ import {
   DrawerLayoutAndroid,
   ToastAndroid,
   ToolbarAndroid,
+  StatusBar
   
-   
 } from 'react-native';
 import DrawerList from './DrawerList';
 import NewsList from './NewsList';
@@ -41,6 +41,10 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
+          <StatusBar
+           backgroundColor="#232320"
+           barStyle="light-content"
+           hidden ={false}/>
           <DrawerLayoutAndroid
               ref='drawerLayoutAndroid'//获取Virtula DOM节点标识
               keyboardDismissMode = 'on-drag'
