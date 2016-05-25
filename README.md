@@ -2,7 +2,10 @@
  JanDan for Fun,enjoy yourselves please!
  
  Apk:<https://github.com/xiDaiDai/JanDan_ReactNative_Sample/tree/master/apk/>
-<img src="https://github.com/xiDaiDai/JanDan_ReactNative_Sample/blob/master/sreenshot/827698634.jpg" height="200" width="100" />
+<img src="https://github.com/xiDaiDai/JanDan_ReactNative_Sample/blob/master/sreenshot/827698634.jpg" height="200" width="150" />
+<img src="https://github.com/xiDaiDai/JanDan_ReactNative_Sample/blob/master/sreenshot/827698634.jpg" height="200" width="150" />
+<img src="https://github.com/xiDaiDai/JanDan_ReactNative_Sample/blob/master/sreenshot/827698634.jpg" height="200" width="150" />
+<img src="https://github.com/xiDaiDai/JanDan_ReactNative_Sample/blob/master/sreenshot/827698634.jpg" height="200" width="150" /><img src="https://github.com/xiDaiDai/JanDan_ReactNative_Sample/blob/master/sreenshot/827698634.jpg" height="200" width="150" />
 ![](https://github.com/xiDaiDai/JanDan_ReactNative_Sample/blob/master/sreenshot/827698634.jpg)
 ![](https://github.com/xiDaiDai/JanDan_ReactNative_Sample/blob/master/sreenshot/96191159.jpg)
 ![](https://github.com/xiDaiDai/JanDan_ReactNative_Sample/blob/master/sreenshot/504069161.jpg)
