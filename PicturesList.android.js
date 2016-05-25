@@ -29,7 +29,6 @@ const WINDOW_WIDTH = Dimensions.get('window').width;
 const url = "http://jandan.net/?oxwlxojflwblxbsapi=jandan.get_pic_comments&page=";
  
 let pageIndex = 1;
- 
 class PicturesList extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +41,7 @@ class PicturesList extends Component {
         loaded:false,
         loadMore: false,
         newContent:null,
-        isImageLoaded:false
+       
     };
   }
 
@@ -75,8 +74,7 @@ class PicturesList extends Component {
   }
 
   renderNewsItem(newsItem){
-    let imageContent = this.state.isImageLoaded?null:(<ProgressBarAndroid styleAttr="Inverse" color='#272822' />);
-
+    // let imageContent = this.state.isImageLoaded?null:(<ProgressBarAndroid styleAttr="Inverse" color='#272822' />);
    return(
       <TouchableHighlight 
             underlayColor='white'
@@ -87,12 +85,9 @@ class PicturesList extends Component {
                 <Text >{newsItem.comment_date}</Text>
           </View>    
           <View style={{paddingLeft:10,paddingRight:10}}>
-                <Image ref='imageShower' 
-                        onLoadStart={()=>this.setState({isImageLoaded:false})}
-                        onLoad={()=>this.setState({isImageLoaded:true})} 
+                <Image  
                         source={{uri:newsItem.pics[0]}} 
                         style={{width:WINDOW_WIDTH-40,height:300,justifyContent:'center'}}>
-                  {imageContent}
                 </Image>
                 
           </View> 
