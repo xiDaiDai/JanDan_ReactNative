@@ -1,8 +1,7 @@
 # JanDan_ReactNative_Sample
  JanDan for Fun,enjoy yourselves please!
  
- Apk:
-![](https://github.com/xiDaiDai/JanDan_ReactNative_Sample/tree/master/apk)
+ Apk:<https://github.com/xiDaiDai/JanDan_ReactNative_Sample/tree/master/apk/>
 
 ![](https://github.com/xiDaiDai/JanDan_ReactNative_Sample/blob/master/sreenshot/827698634.jpg)
 ![](https://github.com/xiDaiDai/JanDan_ReactNative_Sample/blob/master/sreenshot/96191159.jpg)
