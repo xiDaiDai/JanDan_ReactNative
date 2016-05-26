@@ -30,7 +30,7 @@ class NewsList extends Component {
     super(props);
   
     this.state = {
-        isRefreshing:false,
+        isRefreshing:this.props.needRefresh,
         dataSource:new ListView.DataSource({
           rowHasChanged:(row1,row2)=>row1!==row2,
         }),  
@@ -45,7 +45,7 @@ class NewsList extends Component {
   }
 
   render() {
-     if(!this.state.loaded)return (<LoadingView/>);
+    if(!this.state.loaded)return (<LoadingView/>);
     return (
       <View style={{flex:1}}>
         <ListView
@@ -63,13 +63,12 @@ class NewsList extends Component {
     );
   }
 
-
+ 
   renderFooter(){
     return(this.state.loadmore?<LoadingMoreView/>:null);
     
   }
 
- 
 
   renderNewsItem(newsItem){
     return(
@@ -102,6 +101,7 @@ class NewsList extends Component {
 
 
   fetchNewsData(){
+
     pageIndex = 1,
     fetch(url+pageIndex)
       .then((response) => response.json())
@@ -115,6 +115,11 @@ class NewsList extends Component {
         });
       })
       .done();
+  }
+
+  refreshFromHomePage(){
+     this.setState({isRefreshing: true,});
+     fetchNewsData();
   }
 
   loadmore(){

@@ -18,6 +18,7 @@ import {
 import Splash from './Splash';
 import Home from './Home';
 import NewsPage from './NewsPage';
+import VideoPage from './VideoPage';
 
 let nav;
 
@@ -57,6 +58,9 @@ componentDidMount(){
            break;
         case 'NewsPage':
           return <NewsPage navigator={navigator} route={route} {...route.params}/>
+           break;
+        case 'VideoPage':
+          return <VideoPage navigator={navigator} route={route} {...route.params}/>
         break;
        }
       

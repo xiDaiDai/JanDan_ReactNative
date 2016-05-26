@@ -23,13 +23,14 @@ import {
 import LoadingView from './LoadingView';
 import NewsPage from './NewsPage';
 import LoadingMoreView from './LoadingMoreView';
+import VideoPage from './VideoPage';
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
 
-const url = "http://jandan.net/?oxwlxojflwblxbsapi=jandan.get_pic_comments&page=";
+const url = "http://jandan.net/?oxwlxojflwblxbsapi=jandan.get_video_comments&page=";
  
 let pageIndex = 1;
-class PicturesList extends Component {
+class VideoList extends Component {
   constructor(props) {
     super(props);
   
@@ -52,54 +53,57 @@ class PicturesList extends Component {
   render() {
      if(!this.state.loaded)return (<LoadingView/>);
     return (
-      <View style={{flex:1}}>
+       
         <ListView
+          contentContainerStyle={styles.list} 
           dataSource={this.state.dataSource}
+          
           renderRow={(newsItem)=>this.renderNewsItem(newsItem)}
           onEndReached={()=>this.loadmore()}
-          onEndReachedThreshold={30}
+          onEndReachedThreshold={60}
           renderFooter={()=>this.renderFooter()}
           refreshControl={
             <RefreshControl
               refreshing={this.state.isRefreshing}
               onRefresh={()=>this.onRefresh()}
               colors={['#272822']}/>}/>
-      </View>
+      
     );
   }
 
  renderFooter(){
-    return(this.state.loadmore?<LoadingMoreView/>:null);
+    // return(this.state.loadmore?<LoadingMoreView/>:null);
     
   }
 
   renderNewsItem(newsItem){
-    // let imageContent = this.state.isImageLoaded?null:(<ProgressBarAndroid styleAttr="Inverse" color='#272822' />);
+      
+  if(!newsItem.videos[0]) return null;
    return(
-      <TouchableHighlight 
-            underlayColor='white'
-           >
-        <View style={{backgroundColor:'white',flexDirection:'column',marginTop:10,marginLeft:10,marginRight:10,borderRadius:5,borderWidth:0.5,borderColor:'#A8AFB3'}}>
-          <View style={{ flexDirection :'row',padding:10,alignItems:'center'}}>          
-                <Text style = {{fontSize:16,color:'#272822',paddingRight:10,fontWeight:'bold'}}>{newsItem.comment_author}</Text>
-                <Text >{newsItem.comment_date}</Text>
+      <TouchableHighlight underlayColor='white' onPress={()=>this.pressRow(newsItem.comment_content,newsItem.videos[0].title)}>
+        <View style={styles.item}>
+          <View style={{flex:1,flexDirection :'row',alignItems:'center',paddingLeft:10,paddingRight:10}}>          
+                <Text style = {{fontSize:12,color:'#272822',paddingRight:10,fontWeight:'bold'}}>{newsItem.comment_author}</Text>
+                <Text style={{fontSize:10}}>{newsItem.comment_date}</Text>
           </View>    
-          <View style={{paddingLeft:10,paddingRight:10}}>
-                <Image  
-                        source={{uri:newsItem.pics[0]}} 
-                        style={{width:WINDOW_WIDTH-40,height:300,justifyContent:'center'}}>
+         <View style={{flex:6,borderRadius:2,justifyContent:'center',alignItems:'center'}}>
+                <Image  source={{uri:newsItem.videos[0].thumbnail}}
+                        style={{height:(WINDOW_WIDTH-30)*(0.3),width:(WINDOW_WIDTH-50)/2}}>
                 </Image>
                 
           </View> 
-          <View style={{flexDirection :'row',padding:10}}>
+          <View style={{paddingLeft:10,paddingRight:10,flex:2}}>
+                 <Text style={{fontSize:12,justifyContent:'center'}} numberOfLines={2}>{newsItem.videos[0].title}</Text>
+          </View>
+          <View style={{paddingLeft:10,paddingRight:10,flexDirection :'row',flex:1}}>
                 <View style={{flexDirection :'row'}}>
-                  <Text style={{fontSize:15,paddingRight:15}}>OO {newsItem.vote_positive}</Text>
-                  <Text style={{fontSize:15,paddingRight:15}}>XX {newsItem.vote_negative}</Text>
-                  <Text style={{fontSize:15,paddingRight:15}}>吐槽 {newsItem.vote_positive}</Text>
+                  <Text style={{fontSize:11,paddingRight:15}}>OO {newsItem.vote_positive}</Text>
+                  <Text style={{fontSize:11,paddingRight:15}}>XX {newsItem.vote_negative}</Text>
+                  <Text style={{fontSize:11,paddingRight:15}}>吐槽 {newsItem.vote_positive}</Text>
                 </View>
                 
                 <View style={{flex:1 ,alignItems:'flex-end'}}>
-                 <Text style={{fontSize:15,fontWeight:'bold',justifyContent:'center'}}>. . .</Text>
+                 <Text style={{fontSize:11,fontWeight:'bold',justifyContent:'center'}}>. . .</Text>
                 </View>
                 
           </View>    
@@ -110,7 +114,7 @@ class PicturesList extends Component {
     );
   }
 
-
+ 
   onRefresh(){
       this.setState({isRefreshing: true,});
       this.fetchNewsData();
@@ -152,36 +156,36 @@ class PicturesList extends Component {
   }
 
 
-  pressRow(url){
+  pressRow(url,title){
         this.props.navigator.push({
-             title:'NewsPage',
-             name:'NewsPage',
-             params:{url:url}
-              
+             title:'VideoPage',
+             name:'VideoPage',
+             params:{url:url,title:title}
             });
   }
-
- 
 
 
 }
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent:'center',
-    flexDirection :'row', 
+   
+  list: {
+    padding:5,
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
-  leftContainer:{
-    height:60,
-    flexDirection :'column', 
-    flex: 1,  
-    marginRight: 5,
-    backgroundColor: 'white',
-  },
-  thumbnail:{
-        width:90,
-        height:60,
-    },
+
+  item:{
+    height:(WINDOW_WIDTH-30)/2,
+    width:(WINDOW_WIDTH-30)/2,
+    backgroundColor:'white',
+    flexDirection:'column',
+    margin:5,
+    borderRadius:5,
+    borderWidth:0.5,
+    borderColor:'#A8AFB3',
+    flex:1
+  }
 });
 
-export default PicturesList;
+export default VideoList;

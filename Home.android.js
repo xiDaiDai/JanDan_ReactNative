@@ -18,11 +18,12 @@ import TreeNewBeeList from'./TreeNewBeeList';
 import GirlsList from './GirlsList';
 import PicturesList from './PicturesList';
 import SettingPage from './SettingPage';
+import VideoList from './VideoList';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const DRAWER_ALIGN_RIGHT= 100;
 
-
+let toolBarActions=[{title:'刷新',icon: require('./image/ic_refresh_white_24dp.png'), show: 'always'}];
  
  
 class Home extends Component {
@@ -30,12 +31,12 @@ class Home extends Component {
     super(props);
   
     this.state = {
-      title:'新鲜事'
+      title:'新鲜事',
     };
   }
 
   componentDidMount(){
-    this.setState({centerContent:<NewsList navigator={this.props.navigator}/>});
+    this.setState({centerContent:<NewsList  needRefresh = {this.state.needRefresh} navigator={this.props.navigator}/>});
   }
 
   render() {
@@ -53,13 +54,14 @@ class Home extends Component {
               renderNavigationView={()=>this.renderNavigationView()}>
               <View style={styles.container}>
                    <ToolbarAndroid
+                    ref='toolBarandriod'
                     style={styles.toolBar}
                     navIcon={require('./image/ic_menu_white_18dp.png')}
                     title={this.state.title}
                     titleColor='white'
-                    actions={[{title:'刷新',icon: require('./image/ic_refresh_white_24dp.png'), show: 'always'}]}
+                    actions={toolBarActions}
                     onIconClicked={() => this.refs.drawerLayoutAndroid.openDrawer()}
-                    onActionSelected={this.onActionSelected} />
+                    onActionSelected={(position)=>this.onActionSelected(position)} />
                     {this.state.centerContent}                    
               </View>
           </DrawerLayoutAndroid>
@@ -71,13 +73,18 @@ class Home extends Component {
     return(<DrawerList  onItemSelected={(theme)=>this.onItemSelected(theme)}/>);
   }
 
+  onActionSelected(position){
+    ToastAndroid.show(toolBarActions[position].title,1000); 
+      
+  }
+
  
   onItemSelected(theme){
      this.refs.drawerLayoutAndroid.closeDrawer();
      ToastAndroid.show(theme, ToastAndroid.LONG);
      switch(theme){
         case 'freshNews':
-          this.setState({centerContent :<NewsList navigator={this.props.navigator}/>,title:'新鲜事'})
+          this.setState({centerContent :<NewsList  navigator={this.props.navigator}/>,title:'新鲜事'})
               break;
         case 'treeNewBee':
           this.setState({centerContent :<TreeNewBeeList navigator={this.props.navigator}/>,title:'段子'})
@@ -87,6 +94,9 @@ class Home extends Component {
               break;
         case 'girls':
           this.setState({centerContent :<GirlsList navigator={this.props.navigator}/>,title:'妹子图'})
+              break;
+        case 'videos':
+          this.setState({centerContent :<VideoList navigator={this.props.navigator}/>,title:'小视频'})
               break;
         case 'setting':
           this.setState({centerContent :<SettingPage navigator={this.props.navigator}/>,title:'设置'})
