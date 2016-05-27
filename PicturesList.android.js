@@ -128,7 +128,7 @@ class PicturesList extends Component {
           loaded: true,
           isRefreshing:false
         });
-      })
+      }).catch((err)=>{ToastAndroid.show(err.message,1000)})
       .done();
   }
 
@@ -147,7 +147,7 @@ class PicturesList extends Component {
           isRefreshing:false,
           loadmore:false
         });
-      })
+      }).catch((err)=>{ToastAndroid.show(err.message,1000)})
       .done();
   }
 

@@ -67,7 +67,7 @@ class NewsPage extends Component {
           isloading: false,
          
         });
-      })
+      }).catch((err)=>{ToastAndroid.show(err.message,1000)})
       .done();
   }
 

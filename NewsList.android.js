@@ -103,6 +103,7 @@ class NewsList extends Component {
   fetchNewsData(){
 
     pageIndex = 1,
+    
     fetch(url+pageIndex)
       .then((response) => response.json())
       .then((responseData) => {
@@ -113,7 +114,7 @@ class NewsList extends Component {
           loaded: true,
           isRefreshing:false
         });
-      })
+      }).catch((err)=>{ToastAndroid.show(err.message,1000)})
       .done();
   }
 
@@ -137,7 +138,7 @@ class NewsList extends Component {
           isRefreshing:false,
           loadmore:false
         });
-      })
+      }).catch((err)=>{ToastAndroid.show(err.message,1000)})
       .done();
   }
 

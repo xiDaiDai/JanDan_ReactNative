@@ -69,14 +69,9 @@ class GirlsList extends Component {
   }
   
   renderFooter(){
-    return(this.state.loadmore?<View style={{height:50,justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
-      <ProgressBarAndroid styleAttr="SmallInverse" color='#272822' />
-      <Text style={{fontSize:13,color:'#272822'}}>正在加载......</Text>
-      </View>:null);
-    
+    return(this.state.loadmore?<LoadingMoreView/>:null);
   }
  
-
   renderNewsItem(newsItem){
    return(
       <TouchableHighlight 
@@ -127,7 +122,7 @@ class GirlsList extends Component {
           loaded: true,
           isRefreshing:false
         });
-      })
+      }).catch((err)=>{ToastAndroid.show(err.message,1000)})
       .done();
   }
 
@@ -146,7 +141,7 @@ class GirlsList extends Component {
           isRefreshing:false,
           loadmore:false
         });
-      })
+      }).catch((err)=>{ToastAndroid.show(err.message,1000)})
       .done();
   }
 

@@ -13,13 +13,18 @@ import {
   TouchableHighlight,
   DialogManagerAndroid,
   ToastAndroid,
+  Dimensions,
   View
 } from 'react-native';
+
+const  WINDOW_WIDTH = Dimensions.get('window').width;
+const  WINDOW_HEIGHT = Dimensions.get('window').height;
 
 class SettingPage extends Component {
   render() {
     return (
       <View style={{flex:1,backgroundColor:'#f5f5f5',alignItems:'center',justifyContent:'center'}}>
+      
         <Image style={{width:100,height:100,borderRadius:10}} source={require('./image/ic_launcher.png')}/>
            <TouchableHighlight  onPress={() =>this.showDialog()} underlayColor='#fff'>
               <Text style={{fontSize:20 ,fontWeight:'bold',color:'#272822'}}>煎蛋RN</Text>
@@ -37,8 +42,9 @@ class SettingPage extends Component {
           <Text style={{color:'#272822',fontSize:16}}>自达康（北京）科技有限公司</Text>
           <Text style={{color:'#272822',fontSize:16}}>www.renjk.com</Text>
         </View>
-        
+ 
       </View>
+
     );
   }
 

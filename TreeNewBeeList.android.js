@@ -119,7 +119,7 @@ class TreeNewBeeList extends Component {
           loaded: true,
           isRefreshing:false
         });
-      })
+      }).catch((err)=>{ToastAndroid.show(err.message,1000)})
       .done();
   }
 
@@ -138,7 +138,7 @@ class TreeNewBeeList extends Component {
           isRefreshing:false,
           loadmore:false
         });
-      })
+      }).catch((err)=>{ToastAndroid.show(err.message,1000)})
       .done();
   }
  
