@@ -16,6 +16,7 @@ import {
   TouchableHighlight,
   ToastAndroid,
   ProgressBarAndroid,
+  AsyncStorage
 } from 'react-native';
 
 import LoadingView from './LoadingView';
@@ -41,11 +42,14 @@ class NewsList extends Component {
   }
 
   componentDidMount(){
+     
+   
+    // this.setState({dataSource:this.state.dataSource.cloneWithRows(news.posts)});
     this.fetchNewsData();
   }
 
   render() {
-    if(!this.state.loaded)return (<LoadingView/>);
+    // if(!this.state.loaded)return (<LoadingView/>);
     return (
       <View style={{flex:1}}>
         <ListView
@@ -101,20 +105,28 @@ class NewsList extends Component {
 
 
   fetchNewsData(){
-
     pageIndex = 1,
-    
     fetch(url+pageIndex)
       .then((response) => response.json())
+
       .then((responseData) => {
-       
         this.setState({
           newContent:responseData.posts,
           dataSource:this.state.dataSource.cloneWithRows(responseData.posts),
           loaded: true,
           isRefreshing:false
         });
-      }).catch((err)=>{ToastAndroid.show(err.message,1000)})
+        
+       AsyncStorage.setItem('NewsCache',JSON.stringify(responseData),()=>{
+       
+       //  ToastAndroid.show(,2000);
+       });
+        // ToastAndroid.show(JSON.stringify(responseData),2000);
+
+       
+
+        
+      }).catch((err)=>{ToastAndroid.show(err.message,3000)})
       .done();
   }
 
