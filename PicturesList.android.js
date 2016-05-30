@@ -78,6 +78,7 @@ class PicturesList extends Component {
    return(
       <TouchableHighlight 
             underlayColor='white'
+            onPress={()=>{this.onItemSelected(newsItem.pics[0])}}
            >
         <View style={{backgroundColor:'white',flexDirection:'column',marginTop:10,marginLeft:10,marginRight:10,borderRadius:5,borderWidth:0.5,borderColor:'#A8AFB3'}}>
           <View style={{ flexDirection :'row',padding:10,alignItems:'center'}}>          
@@ -152,10 +153,10 @@ class PicturesList extends Component {
   }
 
 
-  pressRow(url){
+  onItemSelected(url){
         this.props.navigator.push({
-             title:'NewsPage',
-             name:'NewsPage',
+             title:'Image',
+             name:'ImagePage',
              params:{url:url}
               
             });

@@ -19,6 +19,7 @@ import GirlsList from './GirlsList';
 import PicturesList from './PicturesList';
 import SettingPage from './SettingPage';
 import VideoList from './VideoList';
+import TestPage from './TestPage';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const DRAWER_ALIGN_RIGHT= 100;
@@ -100,6 +101,9 @@ class Home extends Component {
               break;
         case 'setting':
           this.setState({centerContent :<SettingPage navigator={this.props.navigator}/>,title:'设置'})
+              break;
+        case 'test':
+          this.setState({centerContent :<TestPage navigator={this.props.navigator}/>,title:'背景图'})
               break;
      }
     

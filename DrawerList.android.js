@@ -21,6 +21,7 @@ const PICTURES = "无聊图 ";
 const GIRLS = "妹子图";
 const VIDEOS = "小电影";
 const SETTING = "设置";
+const TEST = "背景图";
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const DRAWER_ALIGN_RIGHT= 100;
@@ -77,6 +78,16 @@ class DrawerList extends Component {
                   style={styles.icon} />
                <Text style={styles.item}>
                   {VIDEOS}
+               </Text>
+          </View>
+        </TouchableHighlight>
+         <TouchableHighlight  onPress={() => this.props.onItemSelected('test')}  underlayColor='#272822'>
+           <View style={styles.itemView}>
+                <Image
+                  source={require('./image/ic_movie_white_24dp.png')}
+                  style={styles.icon} />
+               <Text style={styles.item}>
+                  {TEST}
                </Text>
           </View>
         </TouchableHighlight>

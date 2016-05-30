@@ -76,6 +76,7 @@ class GirlsList extends Component {
    return(
       <TouchableHighlight 
             underlayColor='white'
+            onPress={()=>this.onItemSelected(newsItem.pics[0])}
            >
         <View style={{backgroundColor:'white',flexDirection:'column'}}>
           <View style={{ flexDirection :'row',padding:10,alignItems:'center'}}>          
@@ -146,10 +147,10 @@ class GirlsList extends Component {
   }
 
 
-  pressRow(url){
+  onItemSelected(url){
         this.props.navigator.push({
-             title:'NewsPage',
-             name:'NewsPage',
+             title:'Image',
+             name:'ImagePage',
              params:{url:url}
               
             });
