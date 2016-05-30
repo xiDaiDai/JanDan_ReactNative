@@ -73,6 +73,10 @@ class VideoList extends Component {
 
  renderFooter(){
     // return(this.state.loadmore?<LoadingMoreView/>:null);
+    /* <View style={{flex:1,flexDirection :'row',alignItems:'center',paddingLeft:10,paddingRight:10}}>          
+                <Text style = {{fontSize:12,color:'#272822',paddingRight:10,fontWeight:'bold'}}>{newsItem.comment_author}</Text>
+                <Text style={{fontSize:10}}>{newsItem.comment_date}</Text>
+          </View> */
     
   }
 
@@ -82,13 +86,10 @@ class VideoList extends Component {
    return(
       <TouchableHighlight underlayColor='white' onPress={()=>this.pressRow(newsItem.comment_content,newsItem.videos[0].title)}>
         <View style={styles.item}>
-          <View style={{flex:1,flexDirection :'row',alignItems:'center',paddingLeft:10,paddingRight:10}}>          
-                <Text style = {{fontSize:12,color:'#272822',paddingRight:10,fontWeight:'bold'}}>{newsItem.comment_author}</Text>
-                <Text style={{fontSize:10}}>{newsItem.comment_date}</Text>
-          </View>    
-         <View style={{flex:6,borderRadius:2,justifyContent:'center',alignItems:'center'}}>
+            
+         <View style={{flex:7,alignItems:'center'}}>
                 <Image  source={{uri:newsItem.videos[0].thumbnail}}
-                        style={{height:(WINDOW_WIDTH-30)*(0.3),width:(WINDOW_WIDTH-50)/2}}>
+                        style={{height:(WINDOW_WIDTH-40)*(7/20),width:(WINDOW_WIDTH-32)/2,borderRadius:5}}>
                 </Image>
                 
           </View> 
