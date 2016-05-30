@@ -81,16 +81,7 @@ class DrawerList extends Component {
                </Text>
           </View>
         </TouchableHighlight>
-         <TouchableHighlight  onPress={() => this.props.onItemSelected('test')}  underlayColor='#272822'>
-           <View style={styles.itemView}>
-                <Image
-                  source={require('./image/ic_movie_white_24dp.png')}
-                  style={styles.icon} />
-               <Text style={styles.item}>
-                  {TEST}
-               </Text>
-          </View>
-        </TouchableHighlight>
+        
       </View>
       <View style={{flex:1,backgroundColor:'#272822'}}></View>
         <View style={{height: 40,backgroundColor:'#272822',marginBottom:20}}>
@@ -109,6 +100,18 @@ class DrawerList extends Component {
     );
   }
 }
+
+
+ // <TouchableHighlight  onPress={() => this.props.onItemSelected('test')}  underlayColor='#272822'>
+ //           <View style={styles.itemView}>
+ //                <Image
+ //                  source={require('./image/ic_movie_white_24dp.png')}
+ //                  style={styles.icon} />
+ //               <Text style={styles.item}>
+ //                  {TEST}
+ //               </Text>
+ //          </View>
+ //        </TouchableHighlight>
 
 const styles = StyleSheet.create({
   container: {
