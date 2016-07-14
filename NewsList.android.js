@@ -33,7 +33,7 @@ class NewsList extends Component {
     super(props);
 
     this.state = {
-      isRefreshing: this.props.needRefresh,
+      isRefreshing: false,
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),

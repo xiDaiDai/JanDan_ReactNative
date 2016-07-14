@@ -4,20 +4,22 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, {
+  Component
+} from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
   View,
-  ProgressBarAndroid
+  ActivityIndicator
 } from 'react-native';
 
 class LoadingMoreView extends Component {
   render() {
     return (
       <View style={{height:50,justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
-      <ProgressBarAndroid styleAttr="SmallInverse" color='#272822' />
+       <ActivityIndicator size ="small" color='#272822' />
       <Text style={{fontSize:13,color:'#272822',marginLeft:10}}>正在加载......</Text>
       </View>
     );

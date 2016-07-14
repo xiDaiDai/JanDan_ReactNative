@@ -4,18 +4,21 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, {
+  Component
+} from 'react';
 import {
   ProgressBarAndroid,
   Text,
-  View
+  View,
+  ActivityIndicator
 } from 'react-native';
 
 class LoadingView extends Component {
   render() {
     return (
-     <View style = {{flex:1,justifyContent:'center',alignItems:'center',backgroundColor:'white'}}>
-        <ProgressBarAndroid styleAttr="Inverse" color='#272822' />
+      <View style = {{flex:1,justifyContent:'center',alignItems:'center',backgroundColor:'white'}}>
+        <ActivityIndicator size ="large" color='#272822' />
         <Text style={{fontSize:15}}>
           数据加载中......
         </Text>
@@ -24,6 +27,6 @@ class LoadingView extends Component {
   }
 }
 
- 
+
 
 export default LoadingView;
