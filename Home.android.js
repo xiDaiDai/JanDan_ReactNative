@@ -1,5 +1,6 @@
-
-import React, { Component } from 'react';
+import React, {
+  Component
+} from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -10,34 +11,41 @@ import {
   ToastAndroid,
   ToolbarAndroid,
   StatusBar
-  
+
 } from 'react-native';
 import DrawerList from './DrawerList';
 import NewsList from './NewsList';
-import TreeNewBeeList from'./TreeNewBeeList';
+import TreeNewBeeList from './TreeNewBeeList';
 import GirlsList from './GirlsList';
 import PicturesList from './PicturesList';
 import SettingPage from './SettingPage';
 import VideoList from './VideoList';
 import TestPage from './TestPage';
+import Videos from './videos';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
-const DRAWER_ALIGN_RIGHT= 100;
+const DRAWER_ALIGN_RIGHT = 100;
 
-let toolBarActions=[{title:'刷新',icon: require('./image/ic_refresh_white_24dp.png'), show: 'always'}];
- 
- 
+let toolBarActions = [{
+  title: '刷新',
+  icon: require('./image/ic_refresh_white_24dp.png'),
+  show: 'always'
+}];
+
+
 class Home extends Component {
   constructor(props) {
     super(props);
-  
+
     this.state = {
-      title:'新鲜事',
+      title: '新鲜事',
     };
   }
 
-  componentDidMount(){
-    this.setState({centerContent:<NewsList  needRefresh = {this.state.needRefresh} navigator={this.props.navigator}/>});
+  componentDidMount() {
+    this.setState({
+      centerContent: <NewsList  navigator={this.props.navigator}/>
+    });
   }
 
   render() {
@@ -63,50 +71,71 @@ class Home extends Component {
                     actions={toolBarActions}
                     onIconClicked={() => this.refs.drawerLayoutAndroid.openDrawer()}
                     onActionSelected={(position)=>this.onActionSelected(position)} />
-                    {this.state.centerContent}                    
+                    {this.state.centerContent}
               </View>
           </DrawerLayoutAndroid>
       </View>
     );
   }
 
-  renderNavigationView(){
-    return(<DrawerList  onItemSelected={(theme)=>this.onItemSelected(theme)}/>);
+  renderNavigationView() {
+    return (<DrawerList  onItemSelected={(theme)=>this.onItemSelected(theme)}/>);
   }
 
-  onActionSelected(position){
-    ToastAndroid.show(toolBarActions[position].title,1000); 
-      
+  onActionSelected(position) {
+    ToastAndroid.show('toolBarActions[position].title', 1000);
+
   }
 
- 
-  onItemSelected(theme){
-     this.refs.drawerLayoutAndroid.closeDrawer();
-     ToastAndroid.show(theme, ToastAndroid.LONG);
-     switch(theme){
-        case 'freshNews':
-          this.setState({centerContent :<NewsList  navigator={this.props.navigator}/>,title:'新鲜事'})
-              break;
-        case 'treeNewBee':
-          this.setState({centerContent :<TreeNewBeeList navigator={this.props.navigator}/>,title:'段子'})
-              break;
-        case 'pictures':
-          this.setState({centerContent :<PicturesList navigator={this.props.navigator}/>,title:'无聊图'})
-              break;
-        case 'girls':
-          this.setState({centerContent :<GirlsList navigator={this.props.navigator}/>,title:'妹子图'})
-              break;
-        case 'videos':
-          this.setState({centerContent :<VideoList navigator={this.props.navigator}/>,title:'小视频'})
-              break;
-        case 'setting':
-          this.setState({centerContent :<SettingPage navigator={this.props.navigator}/>,title:'设置'})
-              break;
-        case 'test':
-          this.setState({centerContent :<TestPage navigator={this.props.navigator}/>,title:'背景图'})
-              break;
-     }
-    
+
+  onItemSelected(theme) {
+    this.refs.drawerLayoutAndroid.closeDrawer();
+    ToastAndroid.show(theme, ToastAndroid.LONG);
+    switch (theme) {
+      case 'freshNews':
+        this.setState({
+          centerContent: <NewsList  navigator={this.props.navigator}/>,
+          title: '新鲜事'
+        })
+        break;
+      case 'treeNewBee':
+        this.setState({
+          centerContent: <TreeNewBeeList navigator={this.props.navigator}/>,
+          title: '段子'
+        })
+        break;
+      case 'pictures':
+        this.setState({
+          centerContent: <PicturesList navigator={this.props.navigator}/>,
+          title: '无聊图'
+        })
+        break;
+      case 'girls':
+        this.setState({
+          centerContent: <GirlsList navigator={this.props.navigator}/>,
+          title: '妹子图'
+        })
+        break;
+      case 'videos':
+        this.setState({
+          centerContent: <Videos navigator={this.props.navigator}/>,
+          title: '小视频'
+        })
+        break;
+      case 'setting':
+        this.setState({
+          centerContent: <SettingPage navigator={this.props.navigator}/>,
+          title: '设置'
+        })
+        break;
+      case 'test':
+        this.setState({
+          centerContent: <TestPage navigator={this.props.navigator}/>,
+          title: '背景图'
+        })
+        break;
+    }
+
   }
 
 

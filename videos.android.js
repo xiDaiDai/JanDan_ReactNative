@@ -17,8 +17,8 @@ import {
   RefreshControl,
   TouchableHighlight,
   ToastAndroid,
-  Dimensions,
-  TouchableOpacity
+  ProgressBarAndroid,
+  Dimensions
 } from 'react-native';
 
 import LoadingView from './LoadingView';
@@ -31,7 +31,7 @@ const WINDOW_WIDTH = Dimensions.get('window').width;
 const url = "http://jandan.net/?oxwlxojflwblxbsapi=jandan.get_video_comments&page=";
 
 let pageIndex = 1;
-class VideoList extends Component {
+class Videos extends Component {
   constructor(props) {
     super(props);
 
@@ -81,8 +81,7 @@ class VideoList extends Component {
               colors={['#272822']}/>
       }
       />
-      </View>
-
+</View>
     );
   }
 
@@ -99,22 +98,33 @@ class VideoList extends Component {
 
     if (!newsItem.videos[0]) return null;
     return (
-      <TouchableOpacity  style={{backgroundColor:'white',height:110}} underlayColor='white' onPress={()=>this.pressRow(newsItem.comment_content,newsItem.videos[0].title)}>
+      <TouchableHighlight style={{height: (WINDOW_WIDTH - 30) / 2,margin: 5}} underlayColor='white' onPress={()=>this.pressRow(newsItem.comment_content,newsItem.videos[0].title)}>
         <View style={styles.item}>
 
-         <View style={{alignItems:'center'}}>
+         <View style={{flex:7,alignItems:'center'}}>
                 <Image  source={{uri:newsItem.videos[0].thumbnail}}
-                        style={{height:70,width:98,borderRadius:5}}>
+                        style={{height:(WINDOW_WIDTH-40)*(7/20),width:(WINDOW_WIDTH-32)/2,borderRadius:5}}>
                 </Image>
 
           </View>
-          <View style={{paddingLeft:5,paddingRight:5}}>
+          <View style={{paddingLeft:10,paddingRight:10,flex:2}}>
                  <Text style={{fontSize:12,justifyContent:'center'}} numberOfLines={2}>{newsItem.videos[0].title}</Text>
           </View>
+          <View style={{paddingLeft:10,paddingRight:10,flexDirection :'row',flex:1}}>
+                <View style={{flexDirection :'row'}}>
+                  <Text style={{fontSize:11,paddingRight:15}}>OO {newsItem.vote_positive}</Text>
+                  <Text style={{fontSize:11,paddingRight:15}}>XX {newsItem.vote_negative}</Text>
+                  <Text style={{fontSize:11,paddingRight:15}}>吐槽 {newsItem.vote_positive}</Text>
+                </View>
 
+                <View style={{flex:1 ,alignItems:'flex-end'}}>
+                 <Text style={{fontSize:11,fontWeight:'bold',justifyContent:'center'}}>. . .</Text>
+                </View>
+
+          </View>
 
         </View>
-      </TouchableOpacity >
+      </TouchableHighlight>
 
     );
   }
@@ -186,22 +196,22 @@ class VideoList extends Component {
 const styles = StyleSheet.create({
 
   list: {
-    justifyContent: 'space-around',
+    padding: 5,
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    backgroundColor: 'white'
+    flexWrap: 'wrap'
   },
+
   item: {
-    height: 100,
-    width: 100,
+    height: (WINDOW_WIDTH - 30) / 2,
+    width: (WINDOW_WIDTH - 30) / 2,
+    backgroundColor: 'white',
     flexDirection: 'column',
-    margin: 5,
+
     borderRadius: 5,
     borderWidth: 0.5,
     borderColor: '#A8AFB3',
-    alignItems: 'center',
-    justifyContent: 'center'
+    flex: 1
   }
 });
 
-export default VideoList;
+export default Videos;
