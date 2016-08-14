@@ -8,6 +8,7 @@
   "dependencies": {
     "react": "15.2.1",
     "react-native": "0.29.0",
+    "react-native-media-kit": "0.0.14",
     "react-native-swiper": "^1.4.5",
     "react-native-viewpager": "^0.2.1"
   }
