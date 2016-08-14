@@ -43,6 +43,7 @@ class Videos extends Component {
       loaded: false,
       loadMore: false,
       newContent: null,
+      unmount: false
 
     };
   }
@@ -129,6 +130,21 @@ class Videos extends Component {
     );
   }
 
+  shouldComponentUpdate() {
+    if (this.state.unmount) {
+      return false;
+    }
+    return true;
+  }
+
+
+  componentWillUnmount() {
+    this.setState({
+      unmount: true
+    });
+    ToastAndroid.show('unmount', 2000);
+  }
+
 
   onRefresh() {
     this.setState({
@@ -172,6 +188,7 @@ class Videos extends Component {
           isRefreshing: false,
           loadmore: false
         });
+
       }).catch((err) => {
         ToastAndroid.show(err.message, 1000)
       })

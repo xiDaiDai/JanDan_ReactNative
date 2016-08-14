@@ -22,6 +22,8 @@ import Home from './Home';
 import NewsPage from './NewsPage';
 import VideoPage from './VideoPage';
 import ImagePage from './ImagePage';
+import VideoPlayer from './VideoPlayerTest';
+
 
 let nav;
 
@@ -70,6 +72,9 @@ class JanDan_ReactNative extends Component {
         break;
       case 'ImagePage':
         return <ImagePage navigator={navigator} route={route} {...route.params}/>
+        break;
+      case 'VideoPlayer':
+        return <VideoPlayer/>
         break;
     }
 

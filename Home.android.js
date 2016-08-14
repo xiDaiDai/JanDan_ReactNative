@@ -83,7 +83,12 @@ class Home extends Component {
   }
 
   onActionSelected(position) {
-    ToastAndroid.show('toolBarActions[position].title', 1000);
+    // ToastAndroid.show('toolBarActions[position].title', 1000);
+    this.props.navigator.push({
+      title: 'VideoPlayer',
+      name: 'VideoPlayer',
+
+    });
 
   }
 
