@@ -16,6 +16,6 @@
 <img src="https://github.com/xiDaiDai/JanDan_ReactNative_Sample/blob/master/sreenshot/1921830431.jpg" height="220" width="150" /></p>
 
 #License
-<p>MIT
+<p>fucking lincense
 
  
